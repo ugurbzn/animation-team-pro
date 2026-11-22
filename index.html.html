@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>Animation Team Pro</title>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--text:#172033;--muted:#667085;--accent:#2563eb;--line:#e5e7eb;--ok:#0f9d58}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+header{background:#111827;color:#fff;padding:22px 18px 16px;position:sticky;top:0;z-index:2}
+header h1{margin:0;font-size:24px}header p{margin:5px 0 0;color:#cbd5e1;font-size:13px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:77px;z-index:1}
+nav button,.btn{border:0;border-radius:10px;padding:10px 12px;background:#e9eefb;color:#1d4ed8;font-weight:700}
+nav button.active,.btn.primary{background:var(--accent);color:#fff}
+main{padding:14px;max-width:850px;margin:auto}.page{display:none}.page.active{display:block}
+.card{background:var(--card);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 10px #0000000b}
+h2{font-size:20px;margin:4px 0 14px}h3{font-size:16px;margin:0 0 10px}
+.row{display:flex;gap:9px;align-items:center}.between{justify-content:space-between}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#fff;border-radius:14px;padding:14px}.stat b{display:block;font-size:22px}.muted{color:var(--muted);font-size:13px}
+.item{padding:11px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.time{font-weight:800;min-width:64px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:10px;font:inherit;background:#fff}
+label{font-size:12px;color:var(--muted);display:block;margin:9px 0 4px}.danger{background:#fee2e2;color:#991b1b}
+.badge{font-size:11px;background:#eef2ff;color:#3730a3;padding:4px 7px;border-radius:999px}.off{background:#fff7ed;color:#9a3412}
+footer{text-align:center;color:#98a2b3;font-size:12px;padding:25px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}nav{top:77px}}
+</style>
+</head>
+<body>
+<header><h1>Animation Team Pro</h1><p>Entertainment Manager • Team & Program Control</p></header>
+<nav id="nav">
+<button class="active" data-page="home">Ana Panel</button>
+<button data-page="schedule">Program</button>
+<button data-page="team">Ekip</button>
+<button data-page="duties">Görevler</button>
+<button data-page="shows">Akşam</button>
+<button data-page="leave">İzinler</button>
+</nav>
+<main>
+<section id="home" class="page active">
+<h2>Bugünün Kontrol Paneli</h2>
+<div class="grid">
+<div class="stat"><span class="muted">Toplam ekip</span><b>12</b>1 Müdür • 1 Asistan • 2 DJ • 8 Animatör</div>
+<div class="stat"><span class="muted">Gündüz programı</span><b>10+</b>Aktivite ve toplantı</div>
+</div>
+<div class="card"><h3>Yönetici Kontrol Listesi</h3>
+<div class="item">✓ 09:30 ekip toplantısı ve görev dağılımı</div>
+<div class="item">✓ Aktivite alanları / ekipman kontrolü</div>
+<div class="item">✓ DJ, müzik ve mikrofon kontrolü</div>
+<div class="item">✓ Akşam şovu / canlı müzik koordinasyonu</div>
+<div class="item">✓ Gün sonu kısa operasyon raporu</div>
+</div>
+<div class="card"><h3>Hızlı Not</h3><textarea id="note" rows="4" placeholder="Bugün için yönetici notu..."></textarea><br><br><button class="btn primary" onclick="saveNote()">Notu Kaydet</button></div>
+</section>
+
+<section id="schedule" class="page">
+<h2>Günlük Aktivite Programı</h2>
+<div class="card" id="scheduleList"></div>
+<div class="card"><h3>Yeni Aktivite Ekle</h3><label>Saat</label><input id="actTime" type="time"><label>Aktivite</label><input id="actName" placeholder="Örn. Boccia"><button class="btn primary" style="margin-top:10px" onclick="addActivity()">Ekle</button></div>
+</section>
+
+<section id="team" class="page">
+<h2>Ekip Yönetimi</h2><div id="teamList"></div>
+<div class="card"><h3>Personel Ekle</h3><label>İsim</label><input id="personName" placeholder="Personelin adı"><label>Görev</label>
+<select id="personRole"><option>Pool Animator</option><option>Mini Club Animator</option><option>DJ</option><option>Assistant Entertainment Manager</option><option>Entertainment Manager</option></select>
+<button class="btn primary" style="margin-top:10px" onclick="addPerson()">Personel Ekle</button></div>
+</section>
+
+<section id="duties" class="page">
+<h2>Görev Tanımları</h2>
+<div class="card"><h3>Entertainment Manager</h3><p>Program planlama, ekip yönetimi, vardiya ve izin kontrolü, misafir memnuniyeti, şov/canlı müzik koordinasyonu, teknik ve operasyon takibi.</p></div>
+<div class="card"><h3>Assistant Entertainment Manager</h3><p>Saha takibi, aktivite dağılımı, ekip kontrolü, müdür yokluğunda operasyonun yürütülmesi ve günlük geri bildirim.</p></div>
+<div class="card"><h3>Pool Animator</h3><p>Misafir iletişimi, gündüz aktiviteleri, turnuvalar, havuz oyunları, etkinlik duyuruları, akşam programına destek.</p></div>
+<div class="card"><h3>Mini Club Animator</h3><p>Çocuk aktiviteleri, okçuluk/mini golf gibi yaşa uygun etkinlikler, mini disco hazırlığı, çocuk güvenliği ve ebeveyn iletişimi.</p></div>
+<div class="card"><h3>DJ</h3><p>Radyo açılışı, gündüz müziği, aktivite müzikleri, mini disco, şov/canlı müzik teknik desteği ve ses kontrolü.</p></div>
+</section>
+
+<section id="shows" class="page">
+<h2>Haftalık Akşam Programı</h2><div id="showList"></div>
+<p class="muted">Şov ve canlı müzik isimlerini haftadan haftaya değiştirebilirsin.</p>
+</section>
+
+<section id="leave" class="page">
+<h2>İzin Günleri</h2><div id="leaveList"></div>
+<div class="card"><h3>İzin Ekle</h3><label>Personel</label><input id="leaveName" placeholder="Personel adı"><label>Gün</label>
+<select id="leaveDay"><option>Pazartesi</option><option>Salı</option><option>Çarşamba</option><option>Perşembe</option><option>Cuma</option><option>Cumartesi</option><option>Pazar</option></select>
+<button class="btn primary" style="margin-top:10px" onclick="addLeave()">İzin Ekle</button></div>
+</section>
+</main>
+<footer>Animation Team Pro • Veriler bu cihazda saklanır</footer>
+<script>
+const defaultSchedule=[
+["09:30","Animation Team Meeting"],["10:00","Radio Opening"],["10:30","Yoga"],
+["11:00","Dart"],["11:30","Water Gym"],["12:00","Pool Game + Kids Archery"],
+["12:30","Break Time (12:30–14:30)"],["14:30","Afternoon Opening / Club Dance"],
+["15:00","Dart"],["15:30","Water Basketball"],["16:00","Table Tennis Tournament + Kids Mini Golf"],
+["16:30","Mini Football / Basketball"],["17:00","Break Time"],["20:30","Evening Team Meeting"],
+["21:00","Mini Disco"],["21:45","Show / Live Music"]
+];
+let schedule=JSON.parse(localStorage.getItem("schedule")||"null")||defaultSchedule;
+let team=JSON.parse(localStorage.getItem("team")||"null")||[
+["","Entertainment Manager"],["","Assistant Entertainment Manager"],["","DJ"],["","DJ"],
+["","Mini Club Animator"],["","Mini Club Animator"],["","Mini Club Animator"],
+["","Pool Animator"],["","Pool Animator"],["","Pool Animator"],["","Pool Animator"],["","Pool Animator"]
+];
+let leaves=JSON.parse(localStorage.getItem("leaves")||"[]");
+let shows=JSON.parse(localStorage.getItem("shows")||"null")||[
+["Pazartesi","Canlı Müzik"],["Salı","Show"],["Çarşamba","Canlı Müzik"],["Perşembe","Show"],
+["Cuma","Canlı Müzik"],["Cumartesi","Show"],["Pazar","Canlı Müzik"]
+];
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");
+});
+function renderSchedule(){scheduleList.innerHTML=schedule.map((x,i)=>`<div class="item row"><span class="time">${x[0]}</span><span style="flex:1">${x[1]}</span><button class="btn danger" onclick="delActivity(${i})">Sil</button></div>`).join("")}
+function addActivity(){if(!actTime.value||!actName.value)return;schedule.push([actTime.value,actName.value]);schedule.sort((a,b)=>a[0].localeCompare(b[0]));saveSchedule();actName.value=""}
+function delActivity(i){schedule.splice(i,1);saveSchedule()} function saveSchedule(){localStorage.setItem("schedule",JSON.stringify(schedule));renderSchedule()}
+function renderTeam(){teamList.innerHTML=team.map((x,i)=>`<div class="card"><div class="between row"><div><b>${x[0]||"İsim girilecek"}</b><div class="muted">${x[1]}</div></div><button class="btn" onclick="rename(${i})">İsim</button></div></div>`).join("")}
+function rename(i){let n=prompt("Personelin adı:",team[i][0]);if(n!==null){team[i][0]=n;saveTeam()}}
+function addPerson(){if(!personName.value)return;team.push([personName.value,personRole.value]);personName.value="";saveTeam()}
+function saveTeam(){localStorage.setItem("team",JSON.stringify(team));renderTeam()}
+function renderShows(){showList.innerHTML=shows.map((x,i)=>`<div class="card"><div class="row between"><div><b>${x[0]}</b><div>${x[1]}</div><span class="badge">21:45</span></div><button class="btn" onclick="editShow(${i})">Değiştir</button></div></div>`).join("")}
+function editShow(i){let n=prompt(x=shows[i][0]+" programı:",shows[i][1]);if(n){shows[i][1]=n;localStorage.setItem("shows",JSON.stringify(shows));renderShows()}}
+function renderLeaves(){leaveList.innerHTML=leaves.length?leaves.map((x,i)=>`<div class="card row between"><div><b>${x[0]}</b><div class="muted">${x[1]}</div></div><span class="badge off">İzinli</span></div>`).join(""):`<div class="card muted">Henüz izin günü girilmedi.</div>`}
+function addLeave(){if(!leaveName.value)return;leaves.push([leaveName.value,leaveDay.value]);localStorage.setItem("leaves",JSON.stringify(leaves));leaveName.value="";renderLeaves()}
+function saveNote(){localStorage.setItem("managerNote",note.value);alert("Not kaydedildi")}
+note.value=localStorage.getItem("managerNote")||"";
+renderSchedule();renderTeam();renderShows();renderLeaves();
+</script>
+</body></html>
